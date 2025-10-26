@@ -89,24 +89,41 @@ print(paste('mean = ', mean(my1000$k4),' sd = ',sd(my1000$k4)))
 # Now finish by adding blocks with numb being 9, then 16, 25, and 36. be sure to mention how the standard deviation progresses as the sample size changes,
 
 ```{r}
-numb = 9
-Hdata = Homers_data[sample(1:1000,size=numb*1000, replace=T),"kkardashtemp"]
+numb=9
+Hdata = Homers_data[sample(1:1000, size=numb*1000, replace=T),"kkardashtemp"]
 mdata  <-matrix(Hdata,nrow=1000,ncol=numb)
 x.avg <- apply(mdata,1,mean)
 my1000$k9 = x.avg
 
-
-p <- ggplot(my1000, aes(x=k9),col=sex) + 
-  geom_density() +
+p <- ggplot(my1000, aes(x=k9)) + 
+  geom_density() 
+p
 
 # Add mean line
- geom_vline(aes(xintercept=mean(k9)),
+  geom_vline(aes(xintercept=mean(k9)),
             color="blue", linetype="dashed", size=1)
-p + ggtitle("n = 9") +
-  xlab("temperature") + ylab(" density")
-
 print(paste('mean = ', mean(my1000$k9),' sd = ',sd(my1000$k9)))
 
 ```
 
 I analyzed our sample size of 9. According to the Central Limits Theorem, the graph shows that the mean gets closer to 50 if rounded up, while standard deviation is decreasing. This is because it's expected to decrease when the sample standard deviation is 42.0198675541614. When increasing the sample size, we divide the sample standard deviation by square root of 9. This results in 14.0066225 which is similar to the sample size of 14.
+
+```{r}
+numb=16
+Hdata = Homers_data[sample(1:1000, size=numb*1000, replace=T),"kkardashtemp"]
+mdata  <-matrix(Hdata,nrow=1000,ncol=numb)
+x.avg <- apply(mdata,1,mean)
+my1000$k16 = x.avg
+
+p <- ggplot(my1000, aes(x=k16)) + 
+  geom_density() 
+p
+
+# Add mean line
+  geom_vline(aes(xintercept=mean(k16)),
+            color="blue", linetype="dashed", size=1)
+print(paste('mean = ', mean(my1000$k16),' sd = ',sd(my1000$k16)))
+
+```
+
+This graph has a sample size of 16. According to the CLT, standard deviation is expected to decrease due to the sample standard deviation of 42.0198675541614. Dividing this number gives us 10.5049669, which is closer to the result I originally found. Because of this, the graph is becoming symmetrical.
