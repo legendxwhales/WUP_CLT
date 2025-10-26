@@ -127,3 +127,23 @@ print(paste('mean = ', mean(my1000$k16),' sd = ',sd(my1000$k16)))
 ```
 
 This graph has a sample size of 16. According to the CLT, standard deviation is expected to decrease due to the sample standard deviation of 42.0198675541614. Dividing this number gives us 10.5049669, which is closer to the result I originally found. Because of this, the graph is becoming symmetrical.
+
+```{r}
+numb=25
+Hdata = Homers_data[sample(1:1000, size=numb*1000, replace=T),"kkardashtemp"]
+mdata  <-matrix(Hdata,nrow=1000,ncol=numb)
+x.avg <- apply(mdata,1,mean)
+my1000$k25 = x.avg
+
+p <- ggplot(my1000, aes(x=k25)) + 
+  geom_density() 
+p
+
+# Add mean line
+  geom_vline(aes(xintercept=mean(k25)),
+            color="blue", linetype="dashed", size=1)
+print(paste('mean = ', mean(my1000$k25),' sd = ',sd(my1000$k25)))
+
+```
+
+This graph has a sample size of 25. The CLT tells us if the mean is rounded up, the standard deviation will go down. The standard deviation is 42.0198675541614. Dividing this by 25 gives us 8.40397351, which is closer to the original result. This rounds down to 8.4, which gives us a symmetrical graph.
